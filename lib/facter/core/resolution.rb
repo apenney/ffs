@@ -23,7 +23,7 @@ module Facter
 
       def initial(new_initial)
         if @initial
-          raise "Initial value for #{@name} already defined as#{@initial}; cannot redefine"
+          raise "Initial value for #{@name} already defined as #{@initial}; cannot redefine"
         else
           @initial = new_initial
         end
