@@ -19,12 +19,19 @@ module Facter
         res = @resolutions.find { |res| res.name == name }
 
         if res.nil?
-          res = Facter::Core::Resolution.new(self, name)
+          res = Facter::Core::Resolution::Ordered.new(self, name)
           @resolutions << res
         end
 
         res.instance_eval(&block) if block
         res
+      end
+
+      def add(&block)
+        Facter::Core::Resolution::Basic.new(self, 'basic').tap do |res|
+          res.instance_eval(&block) if block
+          @resolutions << res
+        end
       end
 
       def clear
