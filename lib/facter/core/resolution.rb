@@ -12,11 +12,21 @@ module Facter
 
         @confines = []
 
+        @initial = nil
+
         @actions = Graph.new
       end
 
       def clear
         true
+      end
+
+      def initial(new_initial)
+        if @initial
+          raise "Initial value for #{@name} already defined as#{@initial}; cannot redefine"
+        else
+          @initial = new_initial
+        end
       end
 
       def confine(args = {})
@@ -34,7 +44,7 @@ module Facter
       end
 
       def value
-        sorted_actions.inject(nil) do |accum, action|
+        sorted_actions.inject(@initial) do |accum, action|
           action.block.call(accum)
         end
       end
