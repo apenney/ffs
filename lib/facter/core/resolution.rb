@@ -34,7 +34,7 @@ module Facter
       include Comparable
 
       def <=>(other)
-        self.weight <=> other.weight
+        other.weight <=> self.weight
       end
 
       def weight
