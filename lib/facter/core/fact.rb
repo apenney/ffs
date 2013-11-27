@@ -13,6 +13,7 @@ module Facter
       end
 
       attr_reader :resolutions
+      attr_reader :name
 
       def resolution(name, opts = {}, &block)
         res = @resolutions.find { |res| res.name == name }
